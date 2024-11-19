@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://cqpu7xoxlse5c"]
+
+[ext_resource type="AudioStream" uid="uid://br270av2p01rd" path="res://Way Back Then Loop.wav" id="1_20adg"]
+[ext_resource type="Script" path="res://scenes/combat.gd" id="1_ap6t5"]
+[ext_resource type="Texture2D" uid="uid://dlo360g163kto" path="res://sprites/characters/roguelikeChar_transparent.png" id="1_hec7k"]
+[ext_resource type="Script" path="res://scripts/Conductor.gd" id="1_melv2"]
+[ext_resource type="PackedScene" uid="uid://b4t40w81b266p" path="res://scenes/Camera.tscn" id="2_bdvmy"]
+[ext_resource type="Texture2D" uid="uid://cwgsnyy8ditkf" path="res://sprites/pack/roguelikeSheet_transparent.png" id="2_m6bb3"]
+[ext_resource type="Texture2D" uid="uid://cjokhcocdve2" path="res://icon.png" id="6_woe02"]
+[ext_resource type="PackedScene" uid="uid://bqlv5ny810k8a" path="res://scenes/beat_signal.tscn" id="8_okeei"]
+[ext_resource type="Script" path="res://scripts/beat_signal.gd" id="9_nsnia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rweok"]
+size = Vector2(67, 67)
+
+[node name="Combat" type="Node2D"]
+script = ExtResource("1_ap6t5")
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(608, 356)
+scale = Vector2(36.3647, 31.5536)
+texture = ExtResource("2_m6bb3")
+region_enabled = true
+region_rect = Rect2(186.333, 355.678, 17.4987, 14.9586)
+
+[node name="Conductor" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(601, 374)
+stream = ExtResource("1_20adg")
+volume_db = 9.067
+autoplay = true
+script = ExtResource("1_melv2")
+bpm = 97
+
+[node name="StartTimer" type="Timer" parent="Conductor"]
+
+[node name="Camera2D" parent="." instance=ExtResource("2_bdvmy")]
+position = Vector2(608, 376)
+zoom = Vector2(2, 2)
+script = null
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+position = Vector2(400, 384)
+scale = Vector2(14, 14)
+texture = ExtResource("1_hec7k")
+region_enabled = true
+region_rect = Rect2(17, 154, 16, 16)
+
+[node name="NPCSprite" type="Sprite2D" parent="."]
+position = Vector2(816, 376)
+scale = Vector2(14.3187, 14.3187)
+texture = ExtResource("1_hec7k")
+region_enabled = true
+region_rect = Rect2(-0.0800872, 153.92, 16.1145, 15.0762)
+
+[node name="BeatTarget" type="Sprite2D" parent="."]
+position = Vector2(608, 376)
+texture = ExtResource("6_woe02")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BeatTarget"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BeatTarget/StaticBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_rweok")
+
+[node name="BeatSignal" parent="." instance=ExtResource("8_okeei")]
+position = Vector2(8, -120)
+script = ExtResource("9_nsnia")
+
+[node name="CollisionShape2D" parent="BeatSignal" index="0"]
+position = Vector2(598, 307)
+
+[connection signal="report_beat" from="Conductor" to="." method="_on_Conductor_beat"]
+[connection signal="on_target_hit" from="BeatSignal" to="." method="_on_target_hit"]
+
+[editable path="BeatSignal"]

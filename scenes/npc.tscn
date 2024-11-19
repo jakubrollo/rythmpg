@@ -1,0 +1,157 @@
+[gd_scene load_steps=11 format=3 uid="uid://iv3w0lu2iusm"]
+
+[ext_resource type="Script" path="res://scripts/npc.gd" id="1_662lp"]
+[ext_resource type="Texture2D" uid="uid://dlo360g163kto" path="res://sprites/characters/roguelikeChar_transparent.png" id="2_hk656"]
+[ext_resource type="Texture2D" uid="uid://5aychnrs15bo" path="res://sprites/ui/UIbg.png" id="3_yddn1"]
+[ext_resource type="FontFile" uid="uid://mpe86homv2rs" path="res://fonts/kenvector_future.ttf" id="4_q5i5n"]
+
+[sub_resource type="CapsuleShape2D" id="1"]
+radius = 1.41342
+height = 4.22107
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xidvi"]
+radius = 16.0
+
+[sub_resource type="FontFile" id="FontFile_tt2qu"]
+fallbacks = Array[Font]([ExtResource("4_q5i5n")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="Animation" id="Animation_q5u66"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/TextureRect/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i8q7r"]
+resource_name = "info_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/TextureRect/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w6d50"]
+_data = {
+"RESET": SubResource("Animation_q5u66"),
+"info_fade_in": SubResource("Animation_i8q7r")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_662lp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hk656")
+region_enabled = true
+region_rect = Rect2(-0.0800872, 153.92, 16.1145, 15.0762)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(6.21752, 4.26431)
+shape = SubResource("1")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="CloseArea" type="Area2D" parent="."]
+scale = Vector2(1.21815, 1.56429)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseArea"]
+scale = Vector2(1, 0.792394)
+shape = SubResource("CircleShape2D_xidvi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0.760784, 0.662745, 0.623529, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -182.5
+offset_top = 111.0
+offset_right = 182.5
+offset_bottom = 257.0
+grow_horizontal = 2
+texture = ExtResource("3_yddn1")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -5.0
+theme_override_fonts/font = SubResource("FontFile_tt2qu")
+text = "Hi, wanna play a game? :)"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+reset_on_save = false
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_w6d50")
+}
+
+[connection signal="area_shape_entered" from="CloseArea" to="." method="_on_close_area_area_shape_entered"]
+[connection signal="area_shape_exited" from="CloseArea" to="." method="_on_close_area_area_shape_exited"]
+[connection signal="body_entered" from="CloseArea" to="." method="_on_close_area_body_entered"]
+[connection signal="body_exited" from="CloseArea" to="." method="_on_close_area_body_exited"]

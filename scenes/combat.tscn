@@ -1,0 +1,290 @@
+[gd_scene load_steps=22 format=3 uid="uid://cqpu7xoxlse5c"]
+
+[ext_resource type="AudioStream" uid="uid://br270av2p01rd" path="res://Way Back Then Loop.wav" id="1_20adg"]
+[ext_resource type="Script" path="res://scripts/combat.gd" id="1_ap6t5"]
+[ext_resource type="Script" path="res://scripts/Conductor.gd" id="1_melv2"]
+[ext_resource type="PackedScene" uid="uid://b4t40w81b266p" path="res://scenes/Camera.tscn" id="2_bdvmy"]
+[ext_resource type="Texture2D" uid="uid://cwgsnyy8ditkf" path="res://sprites/pack/roguelikeSheet_transparent.png" id="2_m6bb3"]
+[ext_resource type="Script" path="res://scripts/combat_camera.gd" id="6_kkb40"]
+[ext_resource type="Texture2D" uid="uid://cytcufrpcwb4t" path="res://sprites/characters/combat.png" id="7_0y8st"]
+[ext_resource type="PackedScene" uid="uid://cu1n8ydk2q5b8" path="res://scenes/beat_target.tscn" id="8_8gffx"]
+[ext_resource type="Texture2D" uid="uid://0i48w0kg36p0" path="res://sprites/ui/combat_ui.png" id="9_1plcx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbnwu"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(0, 19, 26, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opqt8"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(26, 19, 26, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uw7g"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(52, 19, 26, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt1cl"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(78, 19, 26, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ym485"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(104, 19, 26, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dwv5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbnwu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opqt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2uw7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt1cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ym485")
+}],
+"loop": true,
+"name": &"all",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opqt8")
+}],
+"loop": true,
+"name": &"clap",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ym485")
+}],
+"loop": true,
+"name": &"defend",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt1cl")
+}],
+"loop": true,
+"name": &"reload",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2uw7g")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbnwu")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qfw2"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(0, 3, 26, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p447"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(26, 3, 26, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stl2v"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(52, 3, 26, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dccg7"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(78, 3, 26, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6em5i"]
+atlas = ExtResource("7_0y8st")
+region = Rect2(104, 3, 26, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4fisl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qfw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p447")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stl2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dccg7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6em5i")
+}],
+"loop": true,
+"name": &"all",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p447")
+}],
+"loop": true,
+"name": &"clap",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6em5i")
+}],
+"loop": true,
+"name": &"defend",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dccg7")
+}],
+"loop": true,
+"name": &"reload",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stl2v")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qfw2")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}]
+
+[node name="Combat" type="Node2D"]
+scale = Vector2(2.07073, 2.07073)
+script = ExtResource("1_ap6t5")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(3.86337, -23.1802)
+scale = Vector2(33.0093, 29.617)
+texture = ExtResource("2_m6bb3")
+region_enabled = true
+region_rect = Rect2(187, 356, 16, 15)
+
+[node name="Conductor" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(239.596, 189.362)
+stream = ExtResource("1_20adg")
+volume_db = 9.067
+script = ExtResource("1_melv2")
+
+[node name="StartTimer" type="Timer" parent="Conductor"]
+
+[node name="Camera2D" parent="." instance=ExtResource("2_bdvmy")]
+position = Vector2(0, 0)
+zoom = Vector2(1, 1)
+script = ExtResource("6_kkb40")
+
+[node name="Enemy" type="AnimatedSprite2D" parent="."]
+position = Vector2(155.984, 12.556)
+scale = Vector2(-10.484, 10.484)
+sprite_frames = SubResource("SpriteFrames_8dwv5")
+animation = &"stand"
+
+[node name="Player" type="AnimatedSprite2D" parent="."]
+position = Vector2(-158.398, 13.5218)
+scale = Vector2(10.4843, 10.4843)
+sprite_frames = SubResource("SpriteFrames_4fisl")
+animation = &"stand"
+
+[node name="BeatTarget" parent="." instance=ExtResource("8_8gffx")]
+position = Vector2(0, 139.081)
+scale = Vector2(1.10779, 1.10779)
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Shield" type="Sprite2D" parent="UI"]
+modulate = Color(1, 1, 1, 0.27451)
+position = Vector2(-114.452, -125.077)
+scale = Vector2(5.32737, 5.32737)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(29.3522, 5.03223, 15.6693, 19.0425)
+
+[node name="Ammo" type="Sprite2D" parent="UI"]
+modulate = Color(1, 1, 1, 0.27451)
+position = Vector2(-210.071, -127.491)
+scale = Vector2(5.32737, 5.32737)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(8, 5, 9, 19)
+
+[node name="PlayerHearts" type="Node2D" parent="UI"]
+position = Vector2(-114.452, -125.077)
+scale = Vector2(5.32737, 5.32737)
+
+[node name="Heart3" type="Sprite2D" parent="UI/PlayerHearts"]
+position = Vector2(3.35402, 47.4095)
+scale = Vector2(0.868464, 0.868464)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(30, 32, 11, 10)
+
+[node name="Heart2" type="Sprite2D" parent="UI/PlayerHearts"]
+position = Vector2(-7.52387, 47.4095)
+scale = Vector2(0.868464, 0.868464)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(30, 32, 11, 10)
+
+[node name="Heart1" type="Sprite2D" parent="UI/PlayerHearts"]
+position = Vector2(-18.4018, 47.4095)
+scale = Vector2(0.868464, 0.868464)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(30, 32, 11, 10)
+
+[node name="EnemyHearts" type="Node2D" parent="UI"]
+position = Vector2(193.169, -125.077)
+scale = Vector2(5.32737, 5.32737)
+
+[node name="Heart3" type="Sprite2D" parent="UI/EnemyHearts"]
+position = Vector2(-18.4018, 47.4095)
+scale = Vector2(0.868464, 0.868464)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(30, 32, 11, 10)
+
+[node name="Heart2" type="Sprite2D" parent="UI/EnemyHearts"]
+position = Vector2(-7.52387, 47.4095)
+scale = Vector2(0.868464, 0.868464)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(30, 32, 11, 10)
+
+[node name="Heart1" type="Sprite2D" parent="UI/EnemyHearts"]
+position = Vector2(3.35402, 47.4095)
+scale = Vector2(0.868464, 0.868464)
+texture = ExtResource("9_1plcx")
+region_enabled = true
+region_rect = Rect2(30, 32, 11, 10)
+
+[connection signal="report_beat" from="Conductor" to="." method="_on_Conductor_beat"]
+[connection signal="report_measure" from="Conductor" to="." method="_on_Conductor_measure"]
+[connection signal="timeout" from="Conductor/StartTimer" to="Conductor" method="_on_StartTimer_timeout"]
+[connection signal="body_exited" from="BeatTarget" to="." method="_on_beat_target_body_exited"]

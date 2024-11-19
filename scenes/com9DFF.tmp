@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqpu7xoxlse5c"]
+
+[ext_resource type="AudioStream" uid="uid://br270av2p01rd" path="res://Way Back Then Loop.wav" id="1_20adg"]
+[ext_resource type="Script" path="res://scenes/combat.gd" id="1_ap6t5"]
+[ext_resource type="Texture2D" uid="uid://dlo360g163kto" path="res://sprites/characters/roguelikeChar_transparent.png" id="1_hec7k"]
+[ext_resource type="Script" path="res://scripts/Conductor.gd" id="1_melv2"]
+[ext_resource type="PackedScene" uid="uid://b4t40w81b266p" path="res://scenes/Camera.tscn" id="2_bdvmy"]
+[ext_resource type="Texture2D" uid="uid://cjokhcocdve2" path="res://icon.png" id="6_woe02"]
+
+[node name="Combat" type="Node2D"]
+script = ExtResource("1_ap6t5")
+
+[node name="Conductor" type="Node2D" parent="."]
+position = Vector2(601, 374)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("1_20adg")
+volume_db = 9.067
+autoplay = true
+script = ExtResource("1_melv2")
+bpm = 97
+
+[node name="StartTimer" type="Timer" parent="Conductor/AudioStreamPlayer2D"]
+
+[node name="Camera2D" parent="." instance=ExtResource("2_bdvmy")]
+position = Vector2(601, 374)
+zoom = Vector2(2, 2)
+script = null
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(375, 383)
+scale = Vector2(14, 14)
+texture = ExtResource("1_hec7k")
+region_enabled = true
+region_rect = Rect2(17, 154, 16, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(810, 375)
+scale = Vector2(14, 14)
+texture = ExtResource("1_hec7k")
+region_enabled = true
+region_rect = Rect2(-0.0800872, 153.92, 16.1145, 15.0762)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(599, 376)
+texture = ExtResource("6_woe02")
+
+[connection signal="report_beat" from="Conductor/AudioStreamPlayer2D" to="." method="_on_Conductor_beat"]

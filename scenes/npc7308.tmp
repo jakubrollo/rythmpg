@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://iv3w0lu2iusm"]
+
+[ext_resource type="Script" path="res://scenes/npc.gd" id="1_y7n4c"]
+[ext_resource type="Texture2D" uid="uid://dlo360g163kto" path="res://sprites/characters/roguelikeChar_transparent.png" id="2_hk656"]
+[ext_resource type="Texture2D" uid="uid://5aychnrs15bo" path="res://sprites/ui/UIbg.png" id="3_yddn1"]
+[ext_resource type="FontFile" uid="uid://mpe86homv2rs" path="res://fonts/kenvector_future.ttf" id="4_q5i5n"]
+
+[sub_resource type="CapsuleShape2D" id="1"]
+radius = 1.41342
+height = 4.22107
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xidvi"]
+radius = 16.0
+
+[sub_resource type="FontFile" id="FontFile_tt2qu"]
+fallbacks = Array[Font]([ExtResource("4_q5i5n")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_y7n4c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hk656")
+region_enabled = true
+region_rect = Rect2(-0.0800872, 153.92, 16.1145, 15.0762)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(6.21752, 4.26431)
+shape = SubResource("1")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="CloseArea" type="Area2D" parent="."]
+scale = Vector2(1.21815, 1.56429)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseArea"]
+scale = Vector2(1, 0.792394)
+shape = SubResource("CircleShape2D_xidvi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+self_modulate = Color(0.760784, 0.662745, 0.623529, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 120.0
+offset_right = 215.0
+offset_bottom = 266.0
+grow_horizontal = 2
+texture = ExtResource("3_yddn1")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -5.0
+theme_override_fonts/font = SubResource("FontFile_tt2qu")
+text = "Hi, wanna play a game? :)"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="area_shape_entered" from="CloseArea" to="." method="_on_close_area_area_shape_entered"]
+[connection signal="area_shape_exited" from="CloseArea" to="." method="_on_close_area_area_shape_exited"]
+[connection signal="body_entered" from="CloseArea" to="." method="_on_close_area_body_entered"]
+[connection signal="body_exited" from="CloseArea" to="." method="_on_close_area_body_exited"]

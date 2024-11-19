@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://cqpu7xoxlse5c"]
+
+[ext_resource type="AudioStream" uid="uid://br270av2p01rd" path="res://Way Back Then Loop.wav" id="1_20adg"]
+[ext_resource type="Script" path="res://scenes/combat.gd" id="1_ap6t5"]
+[ext_resource type="Texture2D" uid="uid://dlo360g163kto" path="res://sprites/characters/roguelikeChar_transparent.png" id="1_hec7k"]
+[ext_resource type="Script" path="res://scripts/Conductor.gd" id="1_melv2"]
+[ext_resource type="PackedScene" uid="uid://b4t40w81b266p" path="res://scenes/Camera.tscn" id="2_bdvmy"]
+[ext_resource type="Texture2D" uid="uid://cwgsnyy8ditkf" path="res://sprites/pack/roguelikeSheet_transparent.png" id="2_m6bb3"]
+[ext_resource type="Texture2D" uid="uid://cjokhcocdve2" path="res://icon.png" id="6_woe02"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rweok"]
+size = Vector2(67, 67)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uktsc"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6hmyh"]
+blend_mode = 1
+
+[node name="Combat" type="Node2D"]
+script = ExtResource("1_ap6t5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(608, 356)
+scale = Vector2(36.3647, 31.5536)
+texture = ExtResource("2_m6bb3")
+region_enabled = true
+region_rect = Rect2(186.333, 355.678, 17.4987, 14.9586)
+
+[node name="Conductor" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(601, 374)
+stream = ExtResource("1_20adg")
+volume_db = 9.067
+autoplay = true
+script = ExtResource("1_melv2")
+bpm = 97
+
+[node name="StartTimer" type="Timer" parent="Conductor"]
+
+[node name="Camera2D" parent="." instance=ExtResource("2_bdvmy")]
+position = Vector2(601, 374)
+zoom = Vector2(2, 2)
+script = null
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+position = Vector2(375, 383)
+scale = Vector2(14, 14)
+texture = ExtResource("1_hec7k")
+region_enabled = true
+region_rect = Rect2(17, 154, 16, 16)
+
+[node name="NPCSprite" type="Sprite2D" parent="."]
+position = Vector2(810, 375)
+scale = Vector2(14, 14)
+texture = ExtResource("1_hec7k")
+region_enabled = true
+region_rect = Rect2(-0.0800872, 153.92, 16.1145, 15.0762)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(599, 376)
+texture = ExtResource("6_woe02")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D3/StaticBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_rweok")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_uktsc")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+material = SubResource("CanvasItemMaterial_6hmyh")
+position = Vector2(599, 307)
+scale = Vector2(0.786458, 0.786458)
+texture = ExtResource("6_woe02")
+
+[connection signal="report_beat" from="Conductor" to="." method="_on_Conductor_beat"]

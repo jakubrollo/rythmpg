@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu1n8ydk2q5b8"]
+
+[ext_resource type="Script" path="res://scripts/beat_target.gd" id="1_r6fgb"]
+[ext_resource type="Texture2D" uid="uid://wi6qnl7e47gs" path="res://sprites/ui/beat_actions.png" id="2_khd00"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_narcq"]
+size = Vector2(20, 18.829)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_r6fgb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3.38695, 3.38695)
+texture = ExtResource("2_khd00")
+region_enabled = true
+region_rect = Rect2(8, 17, 19, 19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.12208)
+scale = Vector2(3.62442, 3.62442)
+shape = SubResource("RectangleShape2D_narcq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

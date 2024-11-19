@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctvuef1vvoh6"]
+
+[ext_resource type="Script" path="res://scripts/win_screen.gd" id="1_ddthh"]
+
+[sub_resource type="FontFile" id="FontFile_o3wgk"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/39/0/ascent = 0.0
+cache/0/39/0/descent = 0.0
+cache/0/39/0/underline_position = 0.0
+cache/0/39/0/underline_thickness = 0.0
+cache/0/39/0/scale = 1.0
+cache/0/17/0/ascent = 0.0
+cache/0/17/0/descent = 0.0
+cache/0/17/0/underline_position = 0.0
+cache/0/17/0/underline_thickness = 0.0
+cache/0/17/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="LoseScreen" type="Node2D"]
+z_index = 120
+position = Vector2(504, 360)
+scale = Vector2(0.610684, 0.610684)
+script = ExtResource("1_ddthh")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.402
+offset_top = -170.301
+offset_right = -274.402
+offset_bottom = -130.301
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = -62.8018
+offset_top = -96.9012
+offset_right = 3.19815
+offset_bottom = -52.9012
+scale = Vector2(11.4218, 12.0343)
+color = Color(0.808137, 3.27289e-06, 7.70092e-07, 1)
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = -56.0
+offset_top = -32.0
+offset_right = 127.0
+offset_bottom = 94.0
+scale = Vector2(3.29609, 3.29609)
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="Control/GridContainer"]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontFile_o3wgk")
+theme_override_font_sizes/font_size = 39
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Restart" type="Button" parent="Control/GridContainer"]
+z_index = 110
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontFile_o3wgk")
+theme_override_font_sizes/font_size = 17
+text = "Restart"
+
+[node name="Quit" type="Button" parent="Control/GridContainer"]
+z_index = 110
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontFile_o3wgk")
+theme_override_font_sizes/font_size = 17
+text = "Quit
+"
+
+[connection signal="pressed" from="Control/GridContainer/Restart" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Control/GridContainer/Quit" to="." method="_on_quit_button_pressed"]
