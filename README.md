@@ -13,6 +13,9 @@ My combat is a rhythm-based combat. It works on the principles of this children'
 
   You need to press the same action key twice in each phase for the action to work. Reloading gives you one ammo, and you can only shoot if you have that ammo. If you defend or both you and the enemy shoot at the same time, no health is lost.
 
+**Note**: The music for the game was *stolen* from Squid Game: [https://www.youtube.com/watch?v=81hTGbPIXx4&ab_channel=OriginalSoundtrack](https://www.youtube.com/watch?v=81hTGbPIXx4&ab_channel=OriginalSoundtrack).
+
+
 ---
 
 # Describe where players can find quests
