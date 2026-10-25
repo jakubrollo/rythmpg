@@ -4,7 +4,7 @@ var speed = 0.0
 var bpm = 98 
 
 var spawn_y = -360
-var target_y = 180
+var target_y = 139  # centre of BeatTarget, so the note sits on the target exactly on the beat
 var spawn = Vector2(get_viewport_rect().size.x / 2, spawn_y)
 var dist_to_target = target_y - spawn_y
 	

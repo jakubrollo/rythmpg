@@ -50,27 +50,46 @@ func _ready():
 	HUD.check_visibility()
 	update_ui()
 
+# Input buffering: a press this many seconds before a note reaches the target still counts for it.
+const EARLY_PRESS_BUFFER := 0.15
+var buffered_input := ""
+var buffered_age := 0.0  # in game time, like the notes' movement
+
 func _process(delta: float) -> void:
 	if game_ended:  # Stop gameplay when the game is over
 		return
-	
+
+	var pressed = _just_pressed_input()
+	if pressed != "":
+		buffered_input = pressed
+		buffered_age = 0.0
+	elif buffered_input != "":
+		buffered_age += delta
+		if buffered_age > EARLY_PRESS_BUFFER:
+			buffered_input = ""
+
 	var current_signal = target.get_current_beat_signal()
-	if target.correctlyPressed and !current_signal.alreadyUsed:
-		if Input.is_action_just_pressed("clap"):
+	if buffered_input != "" and target.correctlyPressed and current_signal and !current_signal.alreadyUsed:
+		var input = buffered_input
+		buffered_input = ""
+		if input == "clap":
 			current_signal.get_node("AnimationPlayer").play("target_hit_correctly") 
 			player.play("clap")
 			current_signal.alreadyUsed = true
 			if action_phase == "clap":
 				clap()
 		elif action_phase == "action":
-			handle_action_input(current_signal)
-
-func handle_action_input(current_signal: Node2D) -> void:
-	for action in ["reload", "defend", "shoot"]:
-		if Input.is_action_just_pressed(action):
 			current_signal.get_node("AnimationPlayer").play("target_hit_correctly") 
-			handle_action(action)
+			handle_action(input)
 			current_signal.alreadyUsed = true
+		else:
+			buffered_input = input  # an action key during the clap phase: keep it for the action notes
+
+func _just_pressed_input() -> String:
+	for input in ["clap", "reload", "defend", "shoot"]:
+		if Input.is_action_just_pressed(input):
+			return input
+	return ""
 
 func handle_action(action: String) -> void:
 	if action != last_action:

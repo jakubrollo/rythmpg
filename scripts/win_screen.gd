@@ -9,4 +9,4 @@ func _on_restart_button_pressed():
 	
 func _on_quit_button_pressed():
 	HUD.check_visibility()
-	SceneTransition.change_scene_with_fade("res://scenes/world.tscn")
+	SceneTransition.change_scene_with_fade("res://scenes/World.tscn")

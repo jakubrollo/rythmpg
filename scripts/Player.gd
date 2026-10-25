@@ -100,7 +100,7 @@ func get_hurt(damage):
 	if(PlayerState.health<= 0):
 		var lose_instance = lose_screen.instantiate()
 		PlayerState.player_died = true
-		SceneTransition.change_scene_with_fade("res://scenes/world.tscn")
+		SceneTransition.change_scene_with_fade("res://scenes/World.tscn")
 		
 
 func collect_coins(value):

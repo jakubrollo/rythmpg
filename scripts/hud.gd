@@ -42,3 +42,11 @@ func update_health(amount: float):
 
 	if amount == health_bar.max_value:
 		health_bar.modulate = health_color
+
+# Shortcut straight into the rhythm combat against the basic enemy.
+func _on_battle_button_pressed():
+	var scene = get_tree().current_scene
+	if scene and scene.has_node("Player"):
+		PlayerState.player_position = scene.get_node("Player").position
+	PlayerState.enemy_to_load = load("res://scripts/classic_enemy.gd")
+	SceneTransition.change_scene_with_fade("res://scenes/combat.tscn")

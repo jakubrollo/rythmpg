@@ -187,10 +187,9 @@ texture = ExtResource("2_m6bb3")
 region_enabled = true
 region_rect = Rect2(187, 356, 16, 15)
 
-[node name="Conductor" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(239.596, 189.362)
+[node name="Conductor" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_20adg")
-volume_db = 9.067
+volume_db = 5.77
 script = ExtResource("1_melv2")
 
 [node name="StartTimer" type="Timer" parent="Conductor"]
